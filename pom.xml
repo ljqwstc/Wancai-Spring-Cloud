@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wancai</groupId>
+    <artifactId>wancai-spring-cloud</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>eureka-server-1-8761</module>
+        <module>eureka-server-2-8780</module>
+        <module>service-hi-8762</module>
+        <module>service-hi-8763</module>
+        <module>service-ribbon-8764</module>
+        <module>service-feign-8765</module>
+        <module>service-feign-hystrix-8775</module>
+        <module>service-zuul-8769</module>
+        <module>config-server-8888</module>
+        <module>config-client-8889</module>
+        <module>springcloud-common-base</module>
+        <module>hystrix-dashboard-8770</module>
+        <module>hystrix-turbine-8771</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.3.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <eureka-server-1-url>http://localhost:8761/eureka/</eureka-server-1-url>
+        <eureka-server-2-url>http://localhost:8780/eureka/</eureka-server-2-url>
+        <zipkin-url>http://localhost:9411</zipkin-url>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--lombok插件-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.wancai</groupId>
+                <artifactId>springcloud-common-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <!--maven 可以通过${xxx}来引用maven定义的一些变量，但是只能在pom文件中进行引用。
+            如果我们想在外面的xml，yml，properties等资源文件中也能引用maven定义的变量，
+            例如：${project.version},${maven.compiler.target}。。。。类似这种
+            我们可以使用maven-resources-plugin。之后就可以直接使用${key}来引用了！
+            详见可以看8001模块的yml中的引用！
+            resources标签指的是打包构建的时候，哪些文件会被打包进去！！。
+            会根据filtering属性和include和exclude来决定
+            比如有有一个java包为：com.wancai.my.demo   我构建项目不想打包进去，那么指定以下即可！
+        -->
+        <plugins>
+           <!-- <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources/</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

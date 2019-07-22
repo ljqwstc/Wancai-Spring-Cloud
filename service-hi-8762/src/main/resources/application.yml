@@ -1,0 +1,15 @@
+server:
+  port: 8762
+
+eureka:
+  client:
+    serviceUrl:
+      #客户端注册进eureka服务列表内
+      defaultZone: @eureka-server-1-url@,@eureka-server-2-url@
+
+spring:
+  zipkin:
+    #链路追踪
+    base-url: @zipkin-url@
+  application:
+    name: service-hi

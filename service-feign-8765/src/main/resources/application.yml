@@ -1,0 +1,16 @@
+server:
+  port: 8765
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: @eureka-server-1-url@,@eureka-server-2-url@
+spring:
+  application:
+    name: service-feign
+
+#虽然写的时候没有这个属性的提示。但是其实是有的
+#表示在消费端是否开启对服务的降级处理。即在服务端设置@FeignClient并设置回调函数是否要生效
+#Feign是自带断路器的，在D版本的Spring Cloud之后，它没有默认打开。需要在配置文件中配置打开它，在配置文件加以下代码：
+feign:
+  hystrix:
+    enabled: true

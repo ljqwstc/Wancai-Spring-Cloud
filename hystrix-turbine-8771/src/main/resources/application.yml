@@ -1,0 +1,40 @@
+server:
+  port: 8771
+
+spring:
+  application:
+    name: service-turbine
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: @eureka-server-1-url@,@eureka-server-2-url@
+
+
+########## turbine配置详解 ############
+
+# 情况1，使用服务名字作为集群名字,被监控应用不需要配置任务额外的东西，
+# 直接读取被监控的应用服务名字作为集群。
+# 当发现服务名字为EUREKA-CLIENT-FEIGN（eureka会让其大写），状态数据将会被读取
+#turbine:
+#  aggregator:
+#    cluster-config: EUREKA-CLIENT-FEIGN        # 需要监控的服务集群名
+#  app-config: eureka-client-feign               # 需要监控的服务名
+
+#情况2，当clusterNameExpression=metadata['cluster']
+#使用被监控服务eureka.instance.metadata-map.cluster名字作为集群名字
+#当发现服务的eureka.instance.metadata-map.cluster为EUREKA-CLIENT-FEIGN（eureka会让其大写），状态数据将会被读取
+#turbine:
+#  aggregator:
+#    cluster-config: EUREKA-CLIENT-FEIGN        # 需要监控的服务集群名，可以多个，用,号分隔
+#  app-config: eureka-client-feign               # 需要监控的服务名，多个用,号分隔
+#  cluster-name-expression: metadata['cluster']
+
+#情况3，当clusterNameExpression="'default'"
+#无论什么服务状态数据都会将会被读取
+turbine:
+  app-config: service-feign-hystrix               # 需要监控的服务名，多个用,号分隔
+  cluster-name-expression: "'default'"
+
+########## turbine配置详解 ############
+

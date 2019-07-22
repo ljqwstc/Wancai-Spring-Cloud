@@ -1,0 +1,13 @@
+server:
+  port: 8763
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: @eureka-server-1-url@,@eureka-server-2-url@
+
+spring:
+  zipkin:
+    base-url: @zipkin-url@
+  application:
+    name: service-hi

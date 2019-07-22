@@ -1,0 +1,15 @@
+server:
+  port: 8780
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: @eureka-server-1-url@
+
+spring:
+  application:
+    name: eurka-server-2
